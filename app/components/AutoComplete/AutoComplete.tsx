@@ -80,7 +80,7 @@ export const AutoComplete = ({
               <TextField
                 className=""
                 {...params}
-                label="Search input"
+                label="Search film"
                 onChange={(e) => setInputValue(e.target.value)}
                 value={inputValue}
                 InputProps={{
