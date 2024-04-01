@@ -40,14 +40,14 @@ jobs:
         run: |
           gcloud auth configure-docker us-east1-docker.pkg.dev
 
-      - name: Push the image to GCR
-        run: |
-          docker push gcr.io/$PROJECT_ID/$REPO_NAME:$GITHUB_SHA
-
       - name: Debug Permissions
         run: |
           gcloud projects get-iam-policy $PROJECT_ID
           gcloud artifacts repositories list --project=$PROJECT_ID --location=us
+
+      - name: Push the image to GCR
+        run: |
+          docker push gcr.io/$PROJECT_ID/$REPO_NAME:$GITHUB_SHA
 
       - name: Deploy
         run: |
