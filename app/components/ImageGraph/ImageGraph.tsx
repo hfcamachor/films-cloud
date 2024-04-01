@@ -11,7 +11,6 @@ const posters = (films: FilmsList[]) => {
   return films.map((film, index) => {
     const imdbRatingNum = parseInt(film.imdbRating);
     const imdbRatingRound = Math.floor(imdbRatingNum);
-
     const backgroundPositionX =
       index === 0 ? 0 : `${(100 / (films.length - 1)) * index}%`;
 
