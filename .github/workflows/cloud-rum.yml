@@ -8,7 +8,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.CLOUD_RUN_PROJECT_NAME }}
-  REGION:  northamerica-northeast2
+  REGION: us-east1
   # project-name but it can be anything you want
   REPO_NAME: nextjs-films-cloud-run
 
@@ -39,7 +39,7 @@ jobs:
 
       - name: Authenticate
         run: |-
-          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https:// northamerica-northeast2-docker.pkg.dev
+          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://us-east1-docker.pkg.dev
 
       - name: Push the image to the Google Container Registry (GCR)
         run: |-
