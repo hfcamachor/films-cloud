@@ -42,8 +42,8 @@ jobs:
 
       - name: Debug Permissions
         run: |
-          gcloud projects get-iam-policy $PROJECT_ID
-          gcloud artifacts repositories list --project=$PROJECT_ID --location=us
+          gcloud projects get-iam-policy $PROJECT_ID ${{ secrets.CLOUD_RUN_PROJECT_NAME }}
+          gcloud artifacts repositories list --project=${{ secrets.CLOUD_RUN_PROJECT_NAME }} --location=us
 
       - name: Push the image to GCR
         run: |
