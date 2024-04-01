@@ -35,7 +35,7 @@ jobs:
 
       - name: Build and tag the docker image
         run: |-
-          docker build . --tag gcr.io/$PROJECT_ID/$REPO_NAME:$GITHUB_SHA
+          docker build . --tag gcr.io/films-419002/$REPO_NAME:$GITHUB_SHA
 
       - name: Authenticate
         run: |-
@@ -43,12 +43,12 @@ jobs:
 
       - name: Push the image to the Google Container Registry (GCR)
         run: |-
-          docker push gcr.io/$PROJECT_ID/$REPO_NAME:$GITHUB_SHA
+          docker push gcr.io/films-419002/$REPO_NAME:$GITHUB_SHA
 
       - name: Deploy
         run: |-
           gcloud run deploy $REPO_NAME \
           --region $REGION \
-          --image gcr.io/$PROJECT_ID/$REPO_NAME:$GITHUB_SHA \
+          --image gcr.io/films-419002/$REPO_NAME:$GITHUB_SHA \
           --platform "managed" \
           --quiet
