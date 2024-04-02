@@ -5,7 +5,6 @@ import { Films } from "../../types/types";
 interface AutoCompleteProps {
   onInputValue: (
     e: string,
-    setInputValue: Dispatch<SetStateAction<string>>
   ) => void;
   options: Films[];
   onAddClick: (inputValue: Films) => void;
@@ -21,7 +20,7 @@ export const AutoComplete = ({
   const [searchedFilm, setSearchedFilm] = useState<Films | null>(null);
 
   useEffect(() => {
-    onInputValue(inputValue, setInputValue);
+    onInputValue(inputValue);
     if (options.length) {
       setSearchedFilm(null);
     }
