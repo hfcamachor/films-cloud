@@ -2,7 +2,7 @@ import { AutoComplete } from "../AutoComplete/AutoComplete";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import ImageGraph from "../ImageGraph/ImageGraph";
-import { FilmsList, Films } from "../../types/types";
+import { FilmsList, Films, QueryResult } from "../../types/types";
 import AppSnackbar from "../AppSnackbar/AppSnackbar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import styles from "./filmsHorseApp.module.scss";
@@ -21,7 +21,7 @@ export default function FilmsHorseApp() {
     },
   });
 
-  const { data: suggestions, isLoading } = useQuery(
+  const { data: suggestions, isLoading }: QueryResult = useQuery(
     ["suggestions", searchTerm],
     () => fetchFilmsData(searchTerm),
     {
@@ -40,6 +40,9 @@ export default function FilmsHorseApp() {
   useEffect(() => {
     if (!!filmInfo && filmInfo.imdbRating !== "N/A") {
       const films = [...filmsList, filmInfo];
+      films.sort((a, b) => {
+        return a.Year - b.Year;
+      });
       setFilmsList(films);
     }
   }, [filmInfo]);
@@ -77,6 +80,14 @@ export default function FilmsHorseApp() {
     }
   }, [filmInfo]);
 
+  const sortedSuggestions = () => {
+    if (suggestions) {
+      return suggestions.sort((a, b) => {
+        return parseInt(a.Year) - parseInt(b.Year);
+      });
+    }
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <div className={styles.filmsHorseApp}>
@@ -92,7 +103,7 @@ export default function FilmsHorseApp() {
         <AutoComplete
           onInputValue={onInputValue}
           onAddClick={onAddClick}
-          options={suggestions || []}
+          options={sortedSuggestions() || []}
           isLoadingSuggestions={isLoading}
         />
         <ImageGraph films={filmsList} />

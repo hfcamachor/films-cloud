@@ -10,3 +10,8 @@ export interface FilmsList {
   Title: string;
   Year: string;
 }
+
+export interface QueryResult {
+  data: Films[] | undefined;
+  isLoading: boolean;
+}
